@@ -67,7 +67,8 @@ CREATE TABLE variables (
     measure_unit text,
     direct boolean,
     formula text,
-    answer_number int
+    answer_number int,
+    personaldata boolean NOT NULL DEFAULT FALSE
 );
 
 COPY languages (language_id, name) FROM stdin;
