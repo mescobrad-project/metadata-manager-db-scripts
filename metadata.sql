@@ -68,7 +68,8 @@ CREATE TABLE variables (
     direct boolean,
     formula text,
     answer_number int,
-    personaldata boolean NOT NULL DEFAULT FALSE
+    personaldata boolean NOT NULL DEFAULT FALSE,
+    owner text NOT NULL DEFAULT 'public'
 );
 
 COPY languages (language_id, name) FROM stdin;
