@@ -66,10 +66,17 @@ CREATE TABLE variables (
     data_type text,
     measure_unit text,
     direct boolean,
-    formula text,
+    ref_py text,
     answer_number int,
     personaldata boolean NOT NULL DEFAULT FALSE,
     owner text NOT NULL DEFAULT 'public'
+);
+
+CREATE TABLE variables_variables (
+	variable_id char(8),
+	latent_variable_id char(8),
+	variable_order int,
+	PRIMARY KEY (variable_id, latent_variable_id)
 );
 
 COPY languages (language_id, name) FROM stdin;
@@ -302,6 +309,10 @@ ALTER TABLE ONLY stscategories
     
 ALTER TABLE ONLY variables
     ADD CONSTRAINT variable_pkey PRIMARY KEY (variable_id);
+	
+ALTER TABLE ONLY variables_variables
+    ADD CONSTRAINT fk_variable FOREIGN KEY(variable_id) REFERENCES variables(variable_id),
+    ADD CONSTRAINT fk_latent_variable FOREIGN KEY(variable_id) REFERENCES variables(variable_id);
 
 COMMIT;
 
@@ -315,4 +326,4 @@ ANALYZE translations;
 ANALYZE concepts;
 ANALYZE variables;
 ANALYZE stscategories; 
-  
+ANALYZE variables_variables;  
